@@ -3,7 +3,7 @@ class AptDater < Formula
   homepage "https://github.com/DE-IBH/apt-dater"
   url "https://github.com/DE-IBH/apt-dater/archive/refs/tags/v1.0.4.tar.gz"
   sha256 "a4bd5f70a199b844a34a3b4c4677ea56780c055db7c557ff5bd8f2772378a4d6"
-  license "GPL-2.0"
+  license "GPL-2.0-or-later"
   revision 1
   version_scheme 1
 
@@ -26,17 +26,20 @@ class AptDater < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "pkg-config" => :build
+
   depends_on "gettext"
   depends_on "glib"
   depends_on "popt"
 
   uses_from_macos "libxml2"
+  uses_from_macos "ncurses"
 
   def install
-    system "autoreconf", "-ivf"
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    # Work-around for build issue with Xcode 15.3
+    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
+
+    system "autoreconf", "--force", "--install", "--verbose"
+    system "./configure", *std_configure_args
     system "make", "install"
     # Global config overrides local config, so delete global config to prioritize the
     # config in $HOME/.config/apt-dater
@@ -44,6 +47,6 @@ class AptDater < Formula
   end
 
   test do
-    system "#{bin}/apt-dater", "-v"
+    system bin/"apt-dater", "-v"
   end
 end
