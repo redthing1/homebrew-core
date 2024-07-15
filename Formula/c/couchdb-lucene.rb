@@ -31,7 +31,7 @@ class CouchdbLucene < Formula
     system "tar", "-xzf", "target/couchdb-lucene-#{version}-dist.tar.gz", "--strip", "1"
 
     prefix.install_metafiles
-    rm_rf Dir["bin/*.bat"]
+    rm_r(Dir["bin/*.bat"])
     libexec.install Dir["*"]
 
     env = Language::Java.overridable_java_home_env
