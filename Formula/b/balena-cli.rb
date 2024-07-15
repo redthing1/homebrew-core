@@ -46,13 +46,13 @@ class BalenaCli < Formula
     arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
     node_modules = libexec/"lib/node_modules/balena-cli/node_modules"
     node_modules.glob("{ffi-napi,ref-napi}/prebuilds/*")
-                .each { |dir| dir.rmtree if dir.basename.to_s != "#{os}-#{arch}" }
+                .each { |dir| rm_r(dir) if dir.basename.to_s != "#{os}-#{arch}" }
 
-    (node_modules/"lzma-native/build").rmtree
-    (node_modules/"usb").rmtree if OS.linux?
+    rm_r(node_modules/"lzma-native/build")
+    rm_r(node_modules/"usb") if OS.linux?
 
     term_size_vendor_dir = node_modules/"term-size/vendor"
-    term_size_vendor_dir.rmtree # remove pre-built binaries
+    rm_r(term_size_vendor_dir) # remove pre-built binaries
 
     if OS.mac?
       macos_dir = term_size_vendor_dir/"macos"
