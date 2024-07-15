@@ -71,7 +71,7 @@ class Ghostscript < Formula
   def install
     # Delete local vendored sources so build uses system dependencies
     libs = %w[expat freetype jbig2dec jpeg lcms2mt libpng openjpeg tiff zlib]
-    libs.each { |l| (buildpath/l).rmtree }
+    libs.each { |l| rm_r(buildpath/l) }
 
     configure = build.head? ? "./autogen.sh" : "./configure"
     system configure, *std_configure_args,
@@ -100,8 +100,8 @@ index 89dfa5a..c907831 100644
 --- a/base/unix-dll.mak
 +++ b/base/unix-dll.mak
 @@ -100,10 +100,26 @@ GS_DLLEXT=$(DLL_EXT)
- 
- 
+
+
  # MacOS X
 -#GS_SOEXT=dylib
 -#GS_SONAME=$(GS_SONAME_BASE).$(GS_SOEXT)
@@ -144,4 +144,3 @@ index 565ae80ca..7e8f6719d 100644
 +            *NewLen = Len;
              return 0;
          }
- 
