@@ -26,7 +26,7 @@ class Groovysdk < Formula
 
   def install
     # We don't need Windows' files.
-    rm_f Dir["bin/*.bat"]
+    rm(Dir["bin/*.bat"])
 
     prefix.install_metafiles
     bin.install Dir["bin/*"]
