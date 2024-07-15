@@ -78,7 +78,7 @@ class Docbook < Formula
           end
         end
 
-        rm_rf "docs"
+        rm_r("docs")
         (prefix/"docbook/xml"/r.version).install Dir["*"]
       end
     end
