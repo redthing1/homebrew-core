@@ -18,7 +18,7 @@ class Allure < Formula
 
   def install
     # Remove all windows files
-    rm_f Dir["bin/*.bat"]
+    rm(Dir["bin/*.bat"])
 
     prefix.install_metafiles
     libexec.install Dir["*"]
