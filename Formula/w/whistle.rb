@@ -25,7 +25,7 @@ class Whistle < Formula
 
     # Remove x86 specific optional feature
     node_modules = libexec/"lib/node_modules/whistle/node_modules"
-    rm_f node_modules/"set-global-proxy/lib/mac/whistle" if Hardware::CPU.arm?
+    rm(node_modules/"set-global-proxy/lib/mac/whistle") if Hardware::CPU.arm?
   end
 
   test do
