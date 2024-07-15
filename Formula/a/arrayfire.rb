@@ -61,11 +61,11 @@ class Arrayfire < Formula
     system "cmake", "--install", "build"
 
     # Remove debug info. These files make patchelf fail.
-    rm_f [
+    rm([
       lib/"libaf.debug",
       lib/"libafcpu.debug",
       lib/"libafopencl.debug",
-    ]
+    ])
     pkgshare.install "examples"
   end
 
