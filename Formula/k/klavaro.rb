@@ -41,7 +41,7 @@ class Klavaro < Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
     system "make", "install"
-    rm_rf include
+    rm_r(include)
   end
 
   test do
