@@ -47,7 +47,7 @@ class Embree < Formula
 
     # Remove bin/models directory and the resultant empty bin directory since
     # tutorials are not enabled.
-    rm_rf bin
+    rm_r(bin)
   end
 
   test do
