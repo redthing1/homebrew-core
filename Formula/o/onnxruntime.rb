@@ -33,6 +33,7 @@ class Onnxruntime < Formula
       -DPYTHON_EXECUTABLE=#{which("python3.12")}
       -Donnxruntime_BUILD_SHARED_LIB=ON
       -Donnxruntime_BUILD_UNIT_TESTS=OFF
+      -Donnxruntime_USE_COREML=ON
     ]
 
     system "cmake", "-S", "cmake", "-B", "build", *cmake_args, *std_cmake_args
